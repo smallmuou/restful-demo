@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.smallmuou.dao.UserMapper" >
+    <resultMap id="BaseResultMap" type="xyz.smallmuou.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name
+    </sql>
+
+
+    <select id="getUserList" resultMap="BaseResultMap"  >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_user
+    </select>
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_user
+        WHERE id = #{id}
+    </select>
+
+    <insert id="add" parameterType="xyz.smallmuou.entity.User" >
+        INSERT INTO
+        tb_user
+        (name)
+        VALUES
+        (#{name})
+    </insert>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE
+        tb_user
+        SET
+        name = #{user.name}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer" >
+    DELETE FROM
+    tb_user
+    WHERE
+    id = #{id}
+    </delete>
+
+</mapper>
